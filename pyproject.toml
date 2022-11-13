@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "spotify-internal"
+version = "0.1.0"
+description = "A Python wrapper around the Spotify Internal API which can let users login with their login creds (and not OAuth)"
+authors = ["addyett <g.aditya2048@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "spotify_internal"}]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
