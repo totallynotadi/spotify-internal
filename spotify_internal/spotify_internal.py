@@ -6,7 +6,7 @@ import requests
 from .. import utils
 
 
-INTERNAL_BASE_URL = 'https://api-partner.spotify.com/pathfinder/v1/'
+INTERNAL_BASE_URL = 'https://api-partner.spotify.com/pathfinder/v1/query'
 INTERNAL_URL = 'https://api-partner.spotify.com/pathfinder/v1/query?operationName={operation_name}&variables={variables}'
 
 
@@ -62,7 +62,7 @@ class SpotifyInternal:
 
         return utils.get_authorized_headers(self._auth)
 
-    def _internal_call(self, method, url):
+    def _internal_call(self, method, url, params):
         if not url.startswith('http://'):
             url = INTERNAL_BASE_URL + url
         headers = self._auth_headers()
@@ -79,11 +79,15 @@ class SpotifyInternal:
     def _get(self, url, params, **kwargs):
         if params:
             kwargs.update(params)
-        return self._internal_call('GET', url)
+        return self._internal_call('GET', url, params, kwargs)
 
     def search(self, search_term, offset=0, limit=10, no_of_top_results=5):
         operation_name = 'searchDesktop'
-        return self._get()
+        variables = {'searchTerm': search_term, 'offset': offset,
+                     'limit': limit, 'numberOfTopResults': no_of_top_results}
+        url = INTERNAL_URL.format(
+            operation_name=operation_name, variables=variables)
+        return self._get(url)
 
 
 if __name__ == '__main__':
