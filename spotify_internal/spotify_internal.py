@@ -81,6 +81,10 @@ class SpotifyInternal:
             kwargs.update(params)
         return self._internal_call('GET', url)
 
+    def search(self, search_term, offset=0, limit=10, no_of_top_results=5):
+        operation_name = 'searchDesktop'
+        return self._get()
+
 
 if __name__ == '__main__':
     s = SpotifyInternal("gmadhuri445@gmail.com", "AdItYa123")
